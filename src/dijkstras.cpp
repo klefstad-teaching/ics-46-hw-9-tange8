@@ -56,7 +56,7 @@ void print_path(const vector<int>& path, int total) {
 
     for (size_t i = 0; i < path.size(); ++i) {
         cout << path[i];
-        cout << endl;
+         if (i < path.size() - 1) cout << " ";
     }
-    cout << "Total cost is " << total << endl;
+    cout << "\nTotal cost is " << total << endl;
 }
