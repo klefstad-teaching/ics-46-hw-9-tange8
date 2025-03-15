@@ -67,6 +67,9 @@ bool edit_distance_within(const string& str1, const string& str2, int d)
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list)
 {
+    if (word_list.find(end_word) == word_list.end()) {
+        return {};  // word is not in the dict, so ladder isn't possible 
+    }
     //create a queue vector and push in the words
     //also create a string to track if it's been visited
 	queue<vector<string>> ladderqueue;
