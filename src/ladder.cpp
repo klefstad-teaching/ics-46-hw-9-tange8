@@ -20,16 +20,37 @@ void error(string word1, string word2, string msg)
 //this function checks if the two words are adj, if they differ by one char
 //will be used to swap a char 
 bool is_adjacent(const string& word1, const string& word2) {
-    if (word1.length() != word2.length()) return false; //the words are not the same length
+    int len1 = word1.length();
+    int len2 = word2.length();
 
-    int count = 0;
-    for (size_t i = 0; i < word1.length(); i++) { //loop thru words and check if only the current ind equal
-        if (word1[i] != word2[i]) {
+    //identical words are  adjacent 
+    if (word1 == word2) return true;
+
+    //if the length difference is more than 1, they can't be adjacent
+    if (abs(len1 - len2) > 1) return false;
+
+    int count = 0;  //differences
+    int i = 0, j = 0;
+
+    while (i < len1 && j < len2) {
+        if (word1[i] != word2[j]) {
             count++;
-            if (count > 1) return false; //they don't differ by one
+            if (count > 1) return false;
+
+            //insertion/deletion cases
+            if (len1 > len2) i++;  //word1 is longer (word1 has an extra char)
+            else if (len1 < len2) j++;  //word2 is longer (word2 has an extra char)
+            else { i++; j++; }  //replacement
+        } else {
+            i++;
+            j++;
         }
     }
-    return count == 1; //this should return true or false
+
+    //one extra character left at the end
+    if (i < len1 || j < len2) count++;
+
+    return count == 1;
 }
 
 //checks and computes the editing distance between two strings based on given d
